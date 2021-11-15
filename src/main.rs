@@ -1,7 +1,3 @@
-#![feature(async_stream)]
-
-mod test;
-
 use std::borrow::Borrow;
 use tokio::fs::File;
 use tokio;
@@ -11,10 +7,8 @@ use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::multipart;
 use serde::Deserialize;
 use tokio_util::codec::{BytesCodec, FramedRead};
-use crate::test::test::test;
-
-#[tokio::main]
-async fn main() {
+mod test;
+fn main() {
 
 }
 

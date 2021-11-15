@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use reqwest;
 use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::multipart;

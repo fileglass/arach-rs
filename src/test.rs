@@ -1,9 +1,9 @@
-#![feature(async_stream)]
 #[cfg(test)]
 pub mod test {
     use crate::Arachnid;
     use tokio;
     use tokio::fs::File;
+    use arach_rs::Arachnid;
     #[tokio::test]
     pub async fn test() {
         let client = Arachnid::new("KEY".to_string(), "https://URL/target".to_string());

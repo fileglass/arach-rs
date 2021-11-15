@@ -1,12 +1,13 @@
 #![allow(dead_code)]
+
 use reqwest;
 use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::multipart;
 use reqwest::{Body, Error, StatusCode};
 use serde::Deserialize;
 use tokio;
-use tokio::fs::File;
 use tokio_util::codec::{BytesCodec, FramedRead};
+use tokio::io::AsyncRead;
 
 pub struct Arachnid {
     key: String,
@@ -45,12 +46,15 @@ impl Arachnid {
         Arachnid { key, url }
     }
 
-    pub async fn check_file(
+    pub async fn check_file<T>(
         self: &Arachnid,
-        file: File,
+        file: T,
         file_name: String,
         mime: String,
-    ) -> Result<ArachnidResult, Error> {
+    ) -> Result<ArachnidResult, Error>
+    where
+        T: AsyncRead + Sync + Send + 'static,
+    {
         let stream = FramedRead::new(file, BytesCodec::new());
         let data = multipart::Part::stream(Body::wrap_stream(stream))
             .file_name(file_name)
